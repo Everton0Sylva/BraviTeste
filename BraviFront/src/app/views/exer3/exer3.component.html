@@ -1,0 +1,47 @@
+<div class="card">
+    <div class="card-header">
+        <span class="text-muted">Pessoas</span>
+        <div class="d-flex justify-content-end">
+            <button type="button" (click)="onNewPessoa()" class="btn btn-success mr-2">Cadastrar
+                <i class='fa fa-user-plus ml-2'></i></button>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-12">
+                <label class="form-group has-float-label">
+                    <div class="input-group">
+                        <input class="form-control" name="text" (keyup.enter)="dtTableFilter($event)" />
+                        <div class="input-group-append">
+                            <div class="btn btn-light" (click)="dtTableFilter($event)"><i
+                                    class="simple-icon-magnifier mt-2"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <span>Pesquisar</span>
+                </label>
+            </div>
+            <div class="col-sm-12 data-table-rows data-table-responsive" *ngIf="dtLoad">
+                <ngx-datatable #dtTable class="expandable" [rowHeight]="60" [columnMode]="'force'"
+                    [rows]="listPessoasFilter" [footerHeight]="80" [limit]="10" [headerHeight]="50">
+                    <ngx-datatable-column name="ID" [maxWidth]="70" prop="Id" [sortable]="true">
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column name="Nome" prop="Nome" [sortable]="true">
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column name="" prop="action" [maxWidth]="100" [flexGrow]="1" [sortable]="false">
+                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                            <div class="d-flex align-items-center justify-content-around mb-1">
+                                <button class="btn btn-danger btn-sm"><i class='fa fa-user-times'></i>
+                                </button>
+                                <button class="btn btn-success btn-sm"><i class='fa fa-address-book'></i>
+                                </button>
+                            </div>
+                        </ng-template>
+                    </ngx-datatable-column>
+                </ngx-datatable>
+            </div>
+        </div>
+    </div>
+</div>

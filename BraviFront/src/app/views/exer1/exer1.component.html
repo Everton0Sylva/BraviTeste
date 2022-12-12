@@ -1,0 +1,9 @@
+<div class="row justify-content-center pt-5">
+    <div class="form-group col-3 mt-5 pb-2 mb-2">
+        <label class="form-label">Digite a sequencia</label>
+        <input id="colchetes" type="text" class="form-control" [(ngModel)]="sColchetes" name="colchetes"
+            placeholder="Sequência de Colchetes" (change)="onValidar()" (focus)="onFocus()">
+        <div class="text-danger ml-1" *ngIf="isValid == false">Sequência inválida!</div>
+        <div class="text-success ml-1" *ngIf="isValid == true">Sequência válida!</div>
+    </div>
+</div>

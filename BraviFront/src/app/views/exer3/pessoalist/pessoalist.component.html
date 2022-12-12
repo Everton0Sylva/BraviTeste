@@ -1,0 +1,47 @@
+<div class="card">
+    <div class="card-header">
+        <span class="text-muted">Pessoas</span>
+        <div class="d-flex justify-content-end">
+            <button type="button" routerLink="/exer3/pessoa" class="btn btn-success mr-2">Cadastrar
+                <i class='fa fa-user-plus ms-2'></i></button>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="d-flex align-items-center justify-content-end">
+                <div class="col-md-2">
+                    <div class="input-group">
+                        <input class="form-control" name="text" id="inputSearch" (keyup.enter)="dtTableFilter($event)"
+                            placeholder="Pesquisar Pessoa" />
+                        <button class="btn btn-outline-secondary ml-2" (click)="dtTableFilter($event)"><i
+                                class='fa fa-search'></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 data-table-rows data-table-responsive" *ngIf="dtLoad">
+                <ngx-datatable #dtTable class="bootstrap expandable" [rowHeight]="60" [columnMode]="'force'"
+                    [rows]="listPessoasFilter" [footerHeight]="80" [limit]="10" [headerHeight]="50">
+                    <ngx-datatable-column name="ID" [maxWidth]="70" prop="PessoaId" [sortable]="true">
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column name="Nome" prop="Nome" [sortable]="true">
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column name="" prop="action" [maxWidth]="120" [flexGrow]="1" [sortable]="false">
+                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                            <div class="d-flex align-items-center justify-content-around">
+                                <button class="btn btn-danger btn-sm" (click)="onDeletePessoa(row)" data-toggle="tooltip" title="Excluir Pessoa"><i
+                                        class='fa fa-user-times'></i>
+                                </button>
+                                <button class="btn btn-success btn-sm" (click)="onEditPessoa(row)" data-toggle="tooltip" title="Editar Pessoa"><i
+                                        class='fa fa-address-book'></i>
+                                </button>
+                            </div>
+                        </ng-template>
+                    </ngx-datatable-column>
+                </ngx-datatable>
+            </div>
+        </div>
+    </div>
+</div>
