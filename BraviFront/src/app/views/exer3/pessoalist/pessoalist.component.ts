@@ -43,6 +43,7 @@ export class PessoalistComponent implements OnInit {
     this.listPessoas = [];
     this.dtLoad = false;
     let that = this;
+    that.ngxService.start();
     this.requestService.GetPessoas().then((data: any) => {
       if (Array.isArray(data) && data.length > 0) {
         that.listPessoas = data.map((p: any) => {
@@ -59,6 +60,7 @@ export class PessoalistComponent implements OnInit {
         });
       }
 
+      that.ngxService.stop();
       that.listPessoasFilter = that.listPessoas;
       that.dtLoad = true;
     }).catch((error) => {

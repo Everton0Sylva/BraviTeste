@@ -43,9 +43,7 @@ export class PessoaSaveComponent implements OnInit {
     let that = this;
     this.route.params.subscribe((params: any) => {
       if (params.id !== undefined && params.id !== null) {
-        debugger
         that.pessoaId = params.id;
-        debugger
         that.requestService.GetPessoa(this.pessoaId).then((data: any) => {
           let pessoa = new Pessoa();
           pessoa.fromData(data);
@@ -109,7 +107,6 @@ export class PessoaSaveComponent implements OnInit {
           });
         })
     } else {
-      debugger
       this.requestService.PutPessoas(this.nPessoa)
         .then((data: any) => {
           that.ngxService.stop();
@@ -146,6 +143,44 @@ export class PessoaSaveComponent implements OnInit {
   }
 
   onRemoveContato(row: Contato) {
+    if (row.ContatoId != undefined && row.ContatoId != null &&
+      row.ContatoId > 0) {
+      let that = this;
+      Swal.fire({
+        icon: 'question',
+        title: 'Confirma Exclusão?',
+        text: 'Deseja realmente Apagar o Contato ' + this.listTipo[row.Tipo].name + "?",
+        footer: '*O Contato Salvo será pagado!',
+        showCancelButton: true,
+        confirmButtonText: 'Sim',
+        cancelButtonText: 'Não',
+        reverseButtons: true,
+        customClass: {
+          confirmButton: 'btn btn-outline-danger ms-3',
+          cancelButton: 'btn btn-secondary'
+        },
+        buttonsStyling: false
+      }).then((result) => {
+        if (result.isConfirmed) {
+          that.requestService.DelContato(row.ContatoId.toString())
+            .then((data: any) => {
+              that.ngxService.stop();
+              that.toast.fire({
+                text: 'Excluido com Sucesso!',
+                icon: 'success'
+              });
+              that.onLoadDtTable();
+            }).catch((error) => {
+              that.ngxService.stop();
+              console.log(error);
+              this.toast.fire({
+                text: 'Um erro ocorreu!',
+                icon: 'error'
+              });
+            })
+        }
+      })
+    }
     let idx = this.listContato.findIndex((f: any) => {
       return f == row
     });

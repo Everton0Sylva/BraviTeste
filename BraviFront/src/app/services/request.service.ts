@@ -82,10 +82,26 @@ export class RequestService {
     });
   }
 
-  
+
   public DelPessoas(pessoaId: string) {
     return new Promise((resolve, reject) => {
       let url = environment.url + "/api/pessoa/" + pessoaId;
+      this.http.delete(url, {
+      })
+        .toPromise()
+        .then(
+          data => {
+            resolve(data);
+          }
+        ).catch(error => {
+          reject(error);
+        })
+        ;
+    });
+  }
+  public DelContato(contatoId: string) {
+    return new Promise((resolve, reject) => {
+      let url = environment.url + "/api/contato/" + contatoId;
       this.http.delete(url, {
       })
         .toPromise()
